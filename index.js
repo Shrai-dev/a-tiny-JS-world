@@ -1,73 +1,60 @@
 /* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
    Complete the below for code reviewers' convenience:
 
-   Code repository: _put repo URL here_
-   Web app: _put project's github pages URL here_
+   Code repository: https://github.com/Shrai-dev/a-tiny-JS-world
+   Web app: https://shrai-dev.github.io/a-tiny-JS-world/
    */
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
-const dog = {
-   species: 'dog',
-   name: 'Buddy',
-   gender: 'male',
-   age: 3,
-   legs: 4,
-   hands: 0,
-   saying: 'bark-bark!',
-   friends: ['Elsa', 'Chip', 'Max']
-};
+class Inhabitant {
+   constructor (species, name, gender, age, saying, friends) {
+      this.species = species;
+      this.name = name;
+      this.gender = gender;
+      this.age = age;
+      this.saying = saying;
+      this.friends = friends;
+   }
+   toString() {
+      return `I am a ${this.species}. My name is ${this.name}. I am ${this.age} years old. My friends are ${this.friends.join(', ')}. I say: ${this.saying}`
+   }
 
-const cat = {
-   species: 'cat',
-   name: 'Chloe',
-   gender: 'female',
-   age: 1,
-   legs: 4,
-   hands: 0,
-   saying: 'meow!',
-   friends: ['Leo', 'Simon', 'Kitty']
-};
+}
 
-const man = {
-   species: 'human',
-   name: 'Brian',
-   gender: 'male',
-   age: 26,
-   legs: 2,
-   hands: 2,
-   saying: 'Everyone thinks of changing the world, but no one thinks of changing himself!',
-   friends: ['Ethan', 'James', 'Ryan']
-};
+class Animal extends Inhabitant {
+   constructor(species, name, gender, age, paws, saying, friends) {
+      super(species, name, gender, age, saying, friends);
+      this.paws = paws;
+   }
+   toString() {
+      return super.toString() + ` I have ${this.paws} paws.`
+   }
+}
 
-const woman = {
-   species: 'human',
-   name: 'Olivia',
-   gender: 'female',
-   age: 24,
-   legs: 2,
-   hands: 2,
-   saying: 'The simplest way to be happy is to do good!',
-   friends: ['Maria', 'Kelly', 'Jennifer']
+class Human extends Inhabitant {
+   constructor (species, name, gender, age, legs, hands, saying, friends) {
+      super(species, name, gender, age, saying, friends);
+      this.legs = legs;
+      this.hands = hands;
+   }
+   toString() {
+      return super.toString() + ` I have ${this.legs} legs and ${this.hands} hands.`
+   }
+
 }
 
 // ======== OUTPUT ========
 
+const dog = new Animal ('dog', 'Buddy', 'male', 3, 4, 'bark-bark!', ['Elsa', 'Chip', 'Max']);
+const cat = new Animal ('cat', 'Chloe', 'female', 2, 4, 'meow!', ['Leo', 'Simon', 'Kitty']);
+const man = new Human ('human', 'Brian', 'male', 26, 2, 2, 'Everyone thinks of changing the world, but no one thinks of changing himself!', ['Ethan', 'James', 'Ryan']);
+const woman = new Human ('human', 'Olivia', 'female', 24, 2, 2, 'The simplest way to be happy is to do good!', ['Maria', 'Kelly', 'Jennifer']);
+
 const inhabitants = [dog, cat, man, woman];
 
-const message = ({
-   species,
-   name,
-   age,
-   legs,
-   hands,
-   friends,
-   saying
-}) => {
-   return `I am a ${species}. My name is ${name}. I am ${age} years old. I have ${legs} legs and ${hands} hands. My friends are: ${friends}. I say: ${saying}`;
-}
 inhabitants.forEach(elem => {
-   print(message(elem), 'p');
+   print(elem, 'p');
 }) 
 
 /* Use print(message) for output.
